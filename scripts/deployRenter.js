@@ -19,17 +19,17 @@ async function main() {
 
   console.log("Account balance:", (await deployer.getBalance()).toString());
 
-  const Token = await ethers.getContractFactory("Token");
-  const token = await Token.deploy();
-  await token.deployed();
+  const Renter = await ethers.getContractFactory("Renter");
+  const renter = await Renter.deploy();
+  await renter.deployed();
 
-  console.log("Token address:", token.address);
+  console.log("Renter address:", renter.address);
 
   // We also save the contract's artifacts and address in the frontend directory
-  saveFrontendFiles(token);
+  saveFrontendFiles(renter);
 }
 
-function saveFrontendFiles(token) {
+function saveFrontendFiles(renter) {
   const fs = require("fs");
   const contractsDir = __dirname + "/../frontend/src/contracts";
 
@@ -38,15 +38,15 @@ function saveFrontendFiles(token) {
   }
 
   fs.writeFileSync(
-    contractsDir + "/contract-Token-address.json",
-    JSON.stringify({ Token: token.address }, undefined, 2)
+    contractsDir + "/contract-Renter-address.json",
+    JSON.stringify({ Renter: renter.address }, undefined, 2)
   );
 
-  const TokenArtifact = artifacts.readArtifactSync("Token");
+  const RenterArtifact = artifacts.readArtifactSync("Renter");
 
   fs.writeFileSync(
-    contractsDir + "/Token.json",
-    JSON.stringify(TokenArtifact, null, 2)
+    contractsDir + "/Renter.json",
+    JSON.stringify(RenterArtifact, null, 2)
   );
 }
 
